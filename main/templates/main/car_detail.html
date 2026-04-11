@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ car.car_name }} - Batafsil {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-7 mb-4">
+        {% if car.car_image %}
+        <img src="{{ car.car_image.url }}" class="img-fluid main-img w-100 shadow-sm" alt="{{ car.car_name }}"
+            style="max-height: 500px; object-fit: contain; background-color: #f8f9fa; border-radius: 10px;">
+        {% else %}
+        <div class="main-img d-flex align-items-center justify-content-center bg-secondary text-white"
+            style="height: 400px; border-radius: 10px;">
+            Rasm mavjud emas
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Bosh sahifa</a></li>
+                <li class="breadcrumb-item active">{{ car.car_model.model_name }}</li>
+            </ol>
+        </nav>
+
+        <h1 class="display-5 fw-bold">{{ car.car_name }}</h1>
+        <h3 class="text-success mb-4">${{ car.car_price }}</h3>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title border-bottom pb-2 mb-3">Texnik xususiyatlari</h5>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold text-muted" style="width: 40%;">Brend:</td>
+                            <td>{{ car.car_model.model_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold text-muted">Ishlab chiqarilgan yili:</td>
+                            <td>{{ car.car_year|date:"Y" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold text-muted">Rangi:</td>
+                            <td>{{ car.car_color }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold text-muted">Qo'shilgan vaqti:</td>
+                            <td>{{ car.create_car|date:"d.m.Y" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h5>Mashina haqida:</h5>
+            <p class="text-muted lead" style="font-size: 1rem;">
+                {% if car.car_description %}
+                {{ car.car_description }}
+                {% else %}
+                Ushbu mashina haqida qo'shimcha ma'lumot berilmagan.
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="d-grid gap-2 mt-5">
+            <button class="btn btn-primary btn-lg" type="button">Sotib olish</button>
+            <a href="{% url 'index' %}" class="btn btn-outline-secondary">Orqaga</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5 class="mb-3">Mashinalar</h5>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+  {% for car in cars %}
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      {% if car.car_image %}
+      <img src="{{ car.car_image.url }}" class="card-img-top" alt="{{ car.car_name }}"
+        style="height: 180px; object-fit: cover;">
+      {% else %}
+      <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">Rasm yo'q</div>
+      {% endif %}
+
+      <div class="card-body">
+        <h5 class="card-title">Moshina: {{ car.car_name }}</h5>
+        <p> <b>Moshina yili: </b>{{ car.car_year.year }}</p>
+        <p class="card-text text-primary fw-bold">Narxi: ${{ car.car_price }}</p>
+        <p class="card-text small text-muted">{{ car.car_description|truncatewords:10 }}</p>
+      </div>
+
+      <div class="card-footer bg-white border-top-0">
+        <a href="{% url 'car_detail' car.id %}" class="btn btn-outline-primary btn-sm w-100">Batafsil</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12">
+    <p class="alert alert-info">Bu modelga tegishli mashinalar hozircha yo'q.</p>
+  </div>
+  {% endfor %}
+
+</div>
+{% endblock %}
