@@ -65,7 +65,10 @@
         </div>
 
         <div class="d-grid gap-2 mt-5">
-            <button class="btn btn-primary btn-lg" type="button">Sotib olish</button>
+            {% if user.is_staff %}
+            <a href="{% url 'update_car' car.id %}" class="btn btn-warning btn-lg text-white">Tahrirlash</a>
+            <a href="{% url 'delete_car' car.id %}" class="btn btn-danger btn-lg">O'chirish</a>
+            {% endif %}
             <a href="{% url 'index' %}" class="btn btn-outline-secondary">Orqaga</a>
         </div>
     </div>

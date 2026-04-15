@@ -1,43 +1,50 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
-	{% include 'components/style.html' %}
-	<title>{% block title %} {{ title }} {% endblock %}</title>
-	
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% include 'components/style.html' %}
+    <title>{% block title %} {{ title }} {% endblock %}</title>
+
 </head>
 
 <body>
 
-{% include 'layout/navbar.html' %}
-<div class="container mt-4">
-    <div class="row">
-        
-        <div class="col-md-3">
-            <h5 class="mb-3">Brendlar</h5>
-            <div class="list-group">
-                <a href="{% url 'index' %}" class="list-group-item list-group-item-action active" aria-current="true">
-                    Barcha modellar
-                </a>
+    {% include 'layout/navbar.html' %}
+    <div class="container mt-4">
+        <div class="row">
 
-                {% for model in models %}
-                <a href="{% url 'car_by_model' model.id %}" class="list-group-item list-group-item-action">
-                    {{ model.model_name }}
-                </a>
-                {% endfor %}
+            <div class="col-md-3">
+                <h5 class="mb-3">Brendlar</h5>
+                <div class="list-group">
+                    <a href="{% url 'index' %}" class="list-group-item list-group-item-action active"
+                        aria-current="true">
+                        Barcha modellar
+                    </a>
+
+                    {% for model in models %}
+                    <div
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <a href="{% url 'car_by_model' model.id %}" class="text-decoration-none text-dark flex-grow-1">
+                            {{ model.model_name }}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
+
+            <div class="col-md-9">
+                {% block content %}{% endblock content %}
+            </div>
+
         </div>
+    </div>
 
-        <div class="col-md-9">
-            {% block content %}{% endblock %}
-        </div>
-
-    </div> </div>
-
-{% include 'components/scripts.html' %}
+    {% include 'components/scripts.html' %}
 </body>
+
 </html>

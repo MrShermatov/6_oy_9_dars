@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Siz {{ car.car_name }} ni o'chirmoqchimisiz?</h1>
+<form method="post">
+	{% csrf_token %}
+	<button type="submit" class="btn btn-danger">Delete</button>
+</form>
+<a href="{% url 'car_detail' car.id %}">Ortga</a>
+{% endblock content %}
